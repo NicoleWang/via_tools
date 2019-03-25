@@ -17,7 +17,7 @@ out_file = args.outfile
 if args.listfile is None:
     namelist = os.listdir(ann_dir)
 else:
-    with open(args.outfile, 'r'):
+    with open(args.listfile, 'r'):
         namelist = [x.strip() for x in f.readlines()]
 
 out = dict()
