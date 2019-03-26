@@ -8,6 +8,7 @@ def parse_args():
     parser.add_argument('--imgdir', dest='imgdir', help="image dir", type=str)
     parser.add_argument('--outfile', dest='outfile', help="out file path", type=str)
     parser.add_argument('--listfile', dest='listfile', help="namelist file to be annotated", type=str)
+    parser.add_argument('--minarea', dest='minarea', help="minimum box area", type=int)
     args = parser.parse_args()
     return args
 args = parse_args()
@@ -36,6 +37,8 @@ for name in namelist:
     for bb in bbs:
         wid = bb[2] - bb[0]
         hei = bb[3] - bb[1]
+        if (wid * hei) < args.minarea:
+            continue
         regions.append({'shape_attributes':{'x':bb[0], 'y':bb[1],'width':wid, 'height':hei, 'name':'rect'}, 'region_attributes':{}})
     cur_ann['regions'] = regions
     out_key = "%s%d"%(imname,filesize)
